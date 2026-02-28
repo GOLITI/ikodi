@@ -1,0 +1,14 @@
+[
+  {
+    "id": "mali_prov_001",
+    "titre": "Proverbe sur la discrétion",
+    "contenu": "Les larmes ne se voient pas sous la pluie.",
+    "type_contenu": "proverbe",
+    "langue": "fr",
+    "ethnie": "malinké",
+    "region": "Odienné",
+    "morale": "Les grandes souffrances sont souvent masquées par des circonstances ordinaires.",
+    "themes": ["discrétion", "douleur"],
+    "source_collecte": "Tradition Malinké, région du Kabadougou"
+  }
+]

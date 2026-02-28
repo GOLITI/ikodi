@@ -1,0 +1,14 @@
+[
+  {
+    "id": "yaco_prov_001",
+    "titre": "Proverbe sur l'autorité",
+    "contenu": "On ne laisse pas la tête pour adorer les pieds.",
+    "type_contenu": "proverbe",
+    "langue": "fr",
+    "ethnie": "yacouba",
+    "region": "Man",
+    "morale": "Le respect du droit d'aînesse et de la hiérarchie est le garant de l'ordre.",
+    "themes": ["autorité", "respect", "tradition"],
+    "source_collecte": "Ancien de la forêt sacrée, région du Tonkpi"
+  }
+]

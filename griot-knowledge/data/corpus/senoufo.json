@@ -1,0 +1,50 @@
+[
+  {
+    "id": "senoufo_prov_001",
+    "titre": "Proverbe sur la méfiance",
+    "contenu": "Si la panthère a tué ta maman, dès que tu vois la civette tu cours.",
+    "type_contenu": "proverbe",
+    "langue": "fr",
+    "ethnie": "sénoufo",
+    "region": "Korhogo",
+    "morale": "L'expérience traumatique passée doit dicter une prudence extrême face à ce qui y ressemble.",
+    "themes": ["prudence", "expérience"],
+    "source_collecte": "Notable Soro, collecté lors de récits d'anciens"
+  },
+  {
+    "id": "senoufo_prov_002",
+    "titre": "Proverbe sur le leadership",
+    "contenu": "L'aîné de la famille est comme le singe qui dirige la bande.",
+    "type_contenu": "proverbe",
+    "langue": "fr",
+    "ethnie": "sénoufo",
+    "region": "Korhogo",
+    "morale": "Celui qui précède les autres porte la responsabilité de les guider et de les protéger.",
+    "themes": ["leadership", "responsabilité"],
+    "source_collecte": "Ancien du bois sacré"
+  },
+  {
+    "id": "senoufo_prov_003",
+    "titre": "Proverbe sur le mérite",
+    "contenu": "C'est celui qui a tué la panthère qui doit avoir la tête rasée.",
+    "type_contenu": "proverbe",
+    "langue": "fr",
+    "ethnie": "sénoufo",
+    "region": "Korhogo",
+    "morale": "L'honneur doit revenir exclusivement à celui qui a accompli l'acte de bravoure.",
+    "themes": ["justice", "mérite"],
+    "source_collecte": "Tradition des chasseurs Dozo"
+  },
+  {
+    "id": "senoufo_prov_004",
+    "titre": "Proverbe sur la prévoyance",
+    "contenu": "Si tu vois le margouillat se coudre un pantalon, il sait où faire sortir la queue.",
+    "type_contenu": "proverbe",
+    "langue": "fr",
+    "ethnie": "sénoufo",
+    "region": "Korhogo",
+    "morale": "Tout projet intelligent anticipe les contraintes et les besoins futurs.",
+    "themes": ["prévoyance", "intelligence"],
+    "source_collecte": "Notable Soro de Korhogo"
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "bete_prov_001",
+    "titre": "Proverbe sur le conflit",
+    "contenu": "Quand deux éléphants se battent, c'est l'herbe qui souffre.",
+    "type_contenu": "proverbe",
+    "langue": "fr",
+    "ethnie": "bété",
+    "region": "Gagnoa",
+    "morale": "Les querelles des puissants écrasent toujours les plus faibles.",
+    "themes": ["conflit", "paix", "vulnérabilité"],
+    "source_collecte": "Premier notable Tanoh, lors de médiations de village"
+  },
+  {
+    "id": "bete_prov_002",
+    "titre": "Proverbe sur l'oisiveté",
+    "contenu": "Quand le doigt ne sait où aller, il entre dans le nez.",
+    "type_contenu": "proverbe",
+    "langue": "fr",
+    "ethnie": "bété",
+    "region": "Gagnoa",
+    "morale": "L'inactivité conduit inévitablement l'homme à commettre des actes inutiles ou stupides.",
+    "themes": ["travail", "responsabilité"],
+    "source_collecte": "Habib Zoko, collecteur de proverbes bété"
+  }
+]

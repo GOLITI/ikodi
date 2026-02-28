@@ -1,0 +1,19 @@
+[
+  {
+    "id": "diou_conte_001",
+    "titre": "L'araignée et le roi des animaux",
+    "contenu": "Dans le temps ancien, l'araignée Ananse voulait posséder toutes les histoires du monde. Elle alla trouver Nyame, le dieu du ciel, et lui demanda son prix. Nyame exigea trois choses impossibles : capturer le python royal, attraper les frelons furieux, et saisir le léopard invisible. Ananse, par sa ruse et son intelligence, accomplit les trois épreuves là où la force avait échoué. Depuis ce jour, toutes les histoires du monde appartiennent à l'araignée, et c'est pourquoi on les appelle les 'histoires d'Ananse'.",
+    "type_contenu": "conte",
+    "langue": "fr",
+    "ethnie": "agni",
+    "region": "Abengourou",
+    "morale": "L'intelligence et la ruse triomphent là où la force échoue.",
+    "themes": [
+      "ruse",
+      "intelligence",
+      "défi",
+      "connaissance"
+    ],
+    "source_collecte": "Dépositaire Ama Adjoua"
+  }
+]

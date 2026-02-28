@@ -1,0 +1,16 @@
+node_modules
+dist
+build
+.env
+.DS_Store
+.vite
+npm-debug.log
+yarn-error.log
+.npm
+.idea
+.vscode
+.git
+coverage
+/.cache
+public/locales
+secrets
