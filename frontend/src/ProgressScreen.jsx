@@ -40,7 +40,11 @@ export default function ProgressScreen({ navigate }) {
     <div className="min-h-screen relative pb-24">
       <div className="bg-mesh" />
 
-      <div className="max-w-4xl mx-auto px-6 pt-12">
+      <div className="max-w-4xl mx-auto px-6 pt-8">
+        <button className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase mb-6 hover:scale-105 transition-transform" onClick={() => navigate('home')}>
+          <Icon icon="solar:alt-arrow-left-bold" width={18} />
+          RETOUR
+        </button>
         <header className="mb-10 animate-fade-in">
           <div className="flex items-center justify-between mb-2">
             <div>

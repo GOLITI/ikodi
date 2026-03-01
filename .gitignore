@@ -45,11 +45,41 @@ dist-ssr/
 .DS_Store
 Thumbs.db
 
-# Hackaton Specific Large Files (if necessary to ignore)
+# Hackaton Specific Large Files / Media
 *.mp4
 *.MOV
 *.avi
-chromadb/
-*.pyd
-*.dll
+*.wmv
+*.mkv
+*.wav
+*.flac
+*.zip
+*.tar
+*.gz
+*.7z
+*.rar
 *.exe
+*.dll
+*.so
+*.dylib
+*.pyd
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.h5
+*.onnx
+chromadb/
+
+# Cache
+.cache/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.tox/
+.nox/
+pip-wheel-metadata/
+
+# Logs
+*.log

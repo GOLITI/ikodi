@@ -1,5 +1,5 @@
 // hooks/useDioulaAPI.js
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 
 const API_BASE = 'http://localhost:8001';
 
@@ -126,6 +126,7 @@ export function useDioulaAPI() {
 export function useVoiceRecorder() {
     const [recording, setRecording] = useState(false);
     const [mediaRecorder, setMediaRecorder] = useState(null);
+    const resolveRef = useRef(null);
 
     const startRecording = useCallback(async () => {
         try {
@@ -135,19 +136,18 @@ export function useVoiceRecorder() {
 
             recorder.ondataavailable = (e) => chunks.push(e.data);
 
-            const stopPromise = new Promise((resolve) => {
-                recorder.onstop = () => {
-                    const blob = new Blob(chunks, { type: 'audio/wav' });
-                    resolve(blob);
-                    stream.getTracks().forEach((t) => t.stop());
-                };
-            });
+            recorder.onstop = () => {
+                const blob = new Blob(chunks, { type: 'audio/wav' });
+                if (resolveRef.current) {
+                    resolveRef.current(blob);
+                    resolveRef.current = null;
+                }
+                stream.getTracks().forEach((t) => t.stop());
+            };
 
             recorder.start();
             setMediaRecorder(recorder);
             setRecording(true);
-
-            return stopPromise;
         } catch (err) {
             console.error("Erreur micro:", err);
             throw err;
@@ -155,10 +155,15 @@ export function useVoiceRecorder() {
     }, []);
 
     const stopRecording = useCallback(() => {
-        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-            mediaRecorder.stop();
-            setRecording(false);
-        }
+        return new Promise((resolve) => {
+            resolveRef.current = resolve;
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+                setRecording(false);
+            } else {
+                resolve(null);
+            }
+        });
     }, [mediaRecorder]);
 
     return { recording, startRecording, stopRecording };

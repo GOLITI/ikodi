@@ -79,19 +79,23 @@ export default function LearningPath({ navigate, setSelectedLessonId }) {
           </div>
 
           <div className="relative z-10 w-2/3">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-[#E87A5D] mb-1">Section 1</h2>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="text-[10px] font-black uppercase tracking-widest bg-[#E87A5D] text-white px-2 py-1 rounded-md shadow-sm">
+                Niveau 1
+              </div>
+              <h2 className="text-xs font-bold uppercase tracking-widest text-[#E87A5D]">Section 1</h2>
+            </div>
             <h3 className="text-2xl font-black mb-4 tracking-tighter uppercase">Les Fondations</h3>
             <div className="w-full h-3 bg-[var(--bg-color)] rounded-full overflow-hidden border border-[var(--glass-border)]">
               <div className="h-full bg-gradient-to-r from-[#E87A5D] to-[#FFB84D] transition-all duration-1000" style={{ width: `${progress}%` }} />
             </div>
-            <p className="text-[10px] font-bold uppercase tracking-widest mt-3 text-[var(--text-muted)]">{progress}% de complétion du niveau</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest mt-3 text-[var(--text-muted)]">{progress}% de complétion de la section</p>
           </div>
 
-          <div className="text-right flex flex-col items-end">
-            <div className="w-14 h-14 bg-[#E87A5D]/20 rounded-2xl flex items-center justify-center text-[#E87A5D] mb-2 animate-pulse">
+          <div className="relative z-10 text-right flex flex-col items-end">
+            <div className="w-14 h-14 bg-gradient-to-br from-[#E87A5D]/20 to-[#E87A5D]/5 border border-[#E87A5D]/30 backdrop-blur-md rounded-2xl flex items-center justify-center text-[#E87A5D] shadow-lg animate-pulse">
               <Icon icon="solar:crown-bold" width={28} />
             </div>
-            <span className="text-[10px] font-black uppercase tracking-widest">Niveau 1</span>
           </div>
         </div>
       </div>
@@ -164,13 +168,15 @@ export default function LearningPath({ navigate, setSelectedLessonId }) {
         </div>
       </main>
 
-      {/* Floating Chat Button */}
+      {/* Floating Chat AI Button */}
       <button
         onClick={() => navigate('aiConversationLesson')}
-        className="fixed bottom-32 right-6 w-16 h-16 btn-premium rounded-3xl shadow-2xl flex items-center justify-center group overflow-hidden"
+        className="fixed bottom-32 right-6 w-16 h-16 bg-gradient-to-br from-[#E87A5D] to-[#B25944] text-white rounded-[1.3rem] shadow-[0_12px_35px_rgba(232,122,93,0.4)] flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-300 z-50 group border border-white/10"
       >
-        <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-        <Icon icon="solar:magic-stick-3-bold" width={44} />
+        <div className="absolute inset-0 rounded-[1.3rem] overflow-hidden">
+          <div className="absolute -inset-1 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity blur-md" />
+        </div>
+        <Icon icon="solar:magic-stick-3-bold" width={32} className="relative z-10" />
       </button>
 
       {/* Bottom Nav */}

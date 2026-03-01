@@ -28,7 +28,11 @@ export default function ProfileScreen({ navigate }) {
     <div className="min-h-screen relative pb-24 selection:bg-[#E87A5D]/30">
       <div className="bg-mesh" />
 
-      <div className="max-w-2xl mx-auto px-6 pt-12">
+      <div className="max-w-2xl mx-auto px-6 pt-8">
+        <button className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase mb-6 hover:scale-105 transition-transform" onClick={() => navigate('home')}>
+          <Icon icon="solar:alt-arrow-left-bold" width={18} />
+          RETOUR
+        </button>
         <header className="mb-10 text-center animate-fade-in">
           <h1 className="text-3xl font-bold tracking-tight mb-2">Mon Profil</h1>
           <p className="text-sm uppercase tracking-[0.2em] font-medium" style={{ color: 'var(--text-muted)' }}>Paramètres & Compte</p>
@@ -36,10 +40,6 @@ export default function ProfileScreen({ navigate }) {
 
         <main className="animate-fade-in" style={{ animationDelay: '0.1s' }}>
           <div className="glass-card relative overflow-hidden group mb-8">
-            <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-              <Icon icon="solar:user-bold" width={120} />
-            </div>
-
             <div className="p-8 flex flex-col items-center">
               {/* Avatar Section */}
               <div className="relative mb-6">

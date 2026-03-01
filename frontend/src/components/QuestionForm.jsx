@@ -31,7 +31,7 @@ export default function QuestionForm({ initial = '', onSubmit, loading }) {
             placeholder="Ex: Raconte-moi l'histoire de Yakouba..."
             disabled={loading}
           />
-          <div className="absolute right-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--text-muted-more)' }}>
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: 'var(--text-muted-more)' }}>
             <Icon icon="solar:pen-new-square-linear" width={20} />
           </div>
         </div>

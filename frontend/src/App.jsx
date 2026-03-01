@@ -25,6 +25,7 @@ import ProgressScreen from './ProgressScreen';
 import ProfileScreen from './ProfileScreen';
 import LessonSystem from './LessonSystem';
 import ObjetMystereScreen from './ObjetMystereScreen';
+import EventScreen from './EventScreen';
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -106,6 +107,9 @@ function App() {
   }
   if (currentPage === 'profile') {
     return <ProfileScreen navigate={setCurrentPage} />;
+  }
+  if (currentPage === 'events') {
+    return <EventScreen navigate={setCurrentPage} />;
   }
   return <HomeScreen navigate={setCurrentPage} />;
 }

@@ -4,6 +4,9 @@ import Icon from "./Icon";
 export default function ObjetMystereScreen({ navigate }) {
   return (
     <div style={{ minHeight: "100vh", background: "#1B4332", color: "#fff", display: "flex", flexDirection: "column", justifyContent: "center", padding: "2rem", position: 'relative' }}>
+      <button onClick={() => navigate('home')} style={{ position: 'absolute', top: '1.5rem', left: '1.5rem', background: 'rgba(255,255,255,0.1)', border: 'none', padding: '0.8rem', borderRadius: '50%', color: '#fff', cursor: 'pointer', display: 'flex' }}>
+        <Icon icon="solar:alt-arrow-left-bold" width={24} />
+      </button>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: 1 }}>
         <h1 style={{ fontFamily: 'Playfair Display, serif', fontSize: "2.1rem", marginBottom: "1.5rem", textAlign: "center" }}>
           L’objet mystérieux

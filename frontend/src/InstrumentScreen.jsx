@@ -79,9 +79,9 @@ export default function InstrumentScreen({ onBack, onHome, onInstrumentDetail })
       {/* Top nav */}
       <div className="w-full border-b border-[var(--glass-border)]">
         <div className="max-w-[1200px] mx-auto px-6 py-6 flex items-center">
-          <button className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-[#E87A5D] hover:scale-105 transition-transform" onClick={onBack}>
-            <Icon icon="solar:library-bold" width={18} />
-            MUSÉE CULTUREL
+          <button className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase hover:scale-105 transition-transform" style={{ color: "var(--text-muted)" }} onClick={onBack}>
+            <Icon icon="solar:alt-arrow-left-bold" width={18} />
+            RETOUR
           </button>
         </div>
       </div>
