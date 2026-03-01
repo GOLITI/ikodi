@@ -1,39 +1,68 @@
 import React from "react";
 import { Icon } from "@iconify/react";
+import { useUserStats } from "./hooks/useUserStats";
 
 export default function ProgressScreen({ navigate }) {
-  const achievements = [
-    { name: "Semaine parfaite", icon: "solar:cup-star-bold", color: "#FFB84D", count: 3 },
-    { name: "Polyglotte", icon: "solar:medal-ribbon-star-bold", color: "#60A5FA", unlocked: true },
-    { name: "Lève-tôt", icon: "solar:leaf-bold", color: "#4ADE80", unlocked: true },
-    { name: "Maîtrise", icon: "solar:magic-stick-3-bold", color: "#A78BFA", unlocked: true },
-  ];
+  const { stats: u, loading, lessonsProgress } = useUserStats();
+
+  const lessonsCompleted = u.lessons_completed ?? 0;
+  const wordsStat = u.words_learned ?? 0;
+  const exercisesStat = u.exercises_done ?? 0;
+  const quizScore = u.quiz_score ?? 0;
 
   const stats = [
     {
-      label: "Langue Dioula",
-      value: "68%",
-      icon: "solar:chat-round-line-bold",
-      color: "#4ADE80",
-      trend: "+12%",
-      progress: 68
+      label: 'Leçons terminées',
+      value: loading ? '…' : `${lessonsCompleted}`,
+      icon: 'solar:book-open-bold',
+      color: '#4ADE80',
+      trend: `+${lessonsCompleted}`,
+      progress: Math.min(lessonsCompleted * 10, 100)
     },
     {
-      label: "Quiz Instruments",
-      value: "94/100",
-      icon: "solar:music-note-bold",
-      color: "#E87A5D",
-      trend: "Top 5%",
-      progress: 94
+      label: 'Mots appris',
+      value: loading ? '…' : wordsStat.toString(),
+      icon: 'solar:chat-round-line-bold',
+      color: '#E87A5D',
+      trend: `${wordsStat} mots`,
+      progress: Math.min(wordsStat, 100)
     },
     {
-      label: "Contes Lus",
-      value: "12/30",
-      icon: "solar:book-2-bold",
-      color: "#A78BFA",
-      trend: "2h rest.",
-      progress: 40
-    }
+      label: 'Score quiz',
+      value: loading ? '…' : `${Math.round(quizScore)}%`,
+      icon: 'solar:medal-ribbon-bold',
+      color: '#A78BFA',
+      trend: quizScore >= 80 ? 'Top 🔥' : 'En cours',
+      progress: Math.round(quizScore)
+    },
+  ];
+
+  // Dynamically assign achievements based on user data
+  const achievements = [
+    {
+      name: 'Première leçon',
+      icon: 'solar:cup-star-bold',
+      color: '#FFB84D',
+      unlocked: lessonsCompleted >= 1
+    },
+    {
+      name: 'Polyglotte',
+      icon: 'solar:medal-ribbon-star-bold',
+      color: '#60A5FA',
+      unlocked: wordsStat >= 10
+    },
+    {
+      name: 'Série 3 jours',
+      icon: 'solar:fire-bold',
+      color: '#F97316',
+      unlocked: (u.streak ?? 0) >= 3
+    },
+    {
+      name: 'Expert',
+      icon: 'solar:magic-stick-3-bold',
+      color: '#A78BFA',
+      unlocked: u.level === 'Expert' || u.level === 'Maître'
+    },
   ];
 
   return (
@@ -98,27 +127,18 @@ export default function ProgressScreen({ navigate }) {
 
             <div className="glass-card p-4 grid grid-cols-2 sm:grid-cols-4 gap-4">
               {achievements.map((ach, i) => (
-                <div key={i} className="flex flex-col items-center p-4 rounded-2xl hover:bg-[var(--glass-bg)] transition-colors group cursor-default">
+                <div key={i} className={`flex flex-col items-center p-4 rounded-2xl group cursor-default transition-all duration-300 ${ach.unlocked ? 'hover:bg-[var(--glass-bg)]' : 'opacity-30 grayscale cursor-not-allowed'}`}>
                   <div className="relative mb-3">
-                    <div className="w-16 h-16 rounded-full glass border-2 border-[var(--glass-border)] flex items-center justify-center transition-all duration-500 group-hover:scale-110 shadow-xl" style={{ color: ach.color }}>
-                      <Icon icon={ach.icon} width={28} />
+                    <div className="w-16 h-16 rounded-full glass border-2 border-[var(--glass-border)] flex items-center justify-center transition-all duration-500 group-hover:scale-110 shadow-xl" style={{ color: ach.unlocked ? ach.color : 'gray' }}>
+                      <Icon icon={ach.unlocked ? ach.icon : 'solar:lock-bold'} width={28} />
                     </div>
-                    {ach.count && (
-                      <span className="absolute -top-1 -right-1 w-6 h-6 bg-[#E87A5D] border-3 border-[var(--bg-color)] rounded-full flex items-center justify-center text-[10px] font-bold text-white shadow-lg">
-                        {ach.count}
-                      </span>
-                    )}
                   </div>
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-center" style={{ color: 'var(--text-dim)' }}>{ach.name}</p>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-center" style={{ color: ach.unlocked ? 'var(--text-color)' : 'var(--text-muted)' }}>{ach.name}</p>
+                  {ach.unlocked && (
+                    <span className="mt-1 text-[9px] text-green-400 font-bold">✓ Débloqué</span>
+                  )}
                 </div>
               ))}
-              {/* Locked Achievement */}
-              <div className="flex flex-col items-center p-4 rounded-2xl opacity-30 grayscale cursor-not-allowed">
-                <div className="w-16 h-16 rounded-full glass border-2 border-dashed border-white/20 flex items-center justify-center text-white/40">
-                  <Icon icon="solar:lock-bold" width={24} />
-                </div>
-                <p className="text-[10px] font-bold text-white/70 uppercase tracking-widest text-center mt-3">Verrouillé</p>
-              </div>
             </div>
           </section>
         </main>

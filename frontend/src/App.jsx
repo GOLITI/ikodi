@@ -26,22 +26,40 @@ import ProfileScreen from './ProfileScreen';
 import LessonSystem from './LessonSystem';
 import ObjetMystereScreen from './ObjetMystereScreen';
 import EventScreen from './EventScreen';
+import AuthScreen from './AuthScreen';
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [currentPage, setCurrentPage] = useState('home');
   const [selectedInstrument, setSelectedInstrument] = useState(null);
   const [selectedLessonId, setSelectedLessonId] = useState(null);
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
 
   useEffect(() => {
     const timer = setTimeout(() => setShowSplash(false), 2000);
     return () => clearTimeout(timer);
   }, []);
 
+  const handleLogin = (userData) => {
+    localStorage.setItem('user', JSON.stringify(userData));
+    setUser(userData);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    setUser(null);
+  };
+
   if (showSplash) return <SplashScreen />;
 
-
-  if (showSplash) return <SplashScreen />;
+  if (!user) {
+    return <AuthScreen onLoginSuccess={handleLogin} />;
+  }
 
   if (currentPage === 'aiConversationLesson') {
     return <ConversationAIScreen onBack={() => setCurrentPage('learningPath')} navigate={setCurrentPage} />;
@@ -106,7 +124,7 @@ function App() {
     return <ProgressScreen navigate={setCurrentPage} />;
   }
   if (currentPage === 'profile') {
-    return <ProfileScreen navigate={setCurrentPage} />;
+    return <ProfileScreen navigate={setCurrentPage} onLogout={handleLogout} />;
   }
   if (currentPage === 'events') {
     return <EventScreen navigate={setCurrentPage} />;

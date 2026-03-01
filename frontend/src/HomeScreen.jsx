@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Icon } from "@iconify/react";
 import EventWidget from "./EventWidget";
+import { useUserStats } from "./hooks/useUserStats";
 
 
 const ThemeSwitcher = () => {
@@ -28,13 +29,17 @@ const ThemeSwitcher = () => {
   );
 };
 
-const stats = [
-  { label: "Points", value: "1,250", icon: "solar:star-bold", color: "#E87A5D" },
-  { label: "Série", value: "5 Jrs", icon: "solar:fire-bold", color: "#FFB84D" },
-  { label: "Niveau", value: "Aventurier", icon: "solar:medal-ribbon-bold", color: "#4ADE80" },
-];
-
 export default function HomeScreen({ navigate }) {
+  const user = JSON.parse(localStorage.getItem('user')) || { name: 'Utilisateur', picture: null };
+  const initials = user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+  const { stats: userStats, loading: statsLoading } = useUserStats();
+
+  const stats = [
+    { label: 'Points', value: statsLoading ? '…' : userStats.points.toLocaleString(), icon: 'solar:star-bold', color: '#E87A5D' },
+    { label: 'Série', value: statsLoading ? '…' : `${userStats.streak} Jrs`, icon: 'solar:fire-bold', color: '#FFB84D' },
+    { label: 'Niveau', value: statsLoading ? '…' : userStats.level, icon: 'solar:medal-ribbon-bold', color: '#4ADE80' },
+  ];
+
   return (
     <div className="min-h-screen relative pb-24">
       <div className="bg-mesh" />
@@ -43,12 +48,8 @@ export default function HomeScreen({ navigate }) {
         {/* Header Section */}
         <header className="py-10 flex justify-between items-center animate-fade-in">
           <div>
-            <div className="flex items-center gap-2 mb-1">
-              <span className="w-2 h-2 rounded-full bg-[#E87A5D] animate-pulse" />
-              <p className="text-sm font-bold tracking-[0.2em] uppercase" style={{ color: 'var(--text-muted)' }}>Tableau de Bord</p>
-            </div>
             <h1 className="text-4xl font-bold tracking-tight">
-              Bonjour, <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--text-color)] to-[var(--text-muted)]">Israel</span>
+              Bonjour, <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--text-color)] to-[var(--text-muted)]">{user.name}</span>
             </h1>
           </div>
           <div className="flex items-center gap-3">
@@ -58,11 +59,17 @@ export default function HomeScreen({ navigate }) {
               className="relative group cursor-pointer"
             >
               <div className="absolute -inset-1 bg-gradient-to-r from-[#E87A5D] to-[#B25944] rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-              <img
-                src="/src/assets/profile.jpg"
-                alt="Profile"
-                className="relative w-12 h-12 rounded-full border-2 border-white/10 object-cover"
-              />
+              {user.picture ? (
+                <img
+                  src={user.picture}
+                  alt={user.name}
+                  className="relative w-12 h-12 rounded-full border-2 border-white/10 object-cover"
+                />
+              ) : (
+                <div className="relative w-12 h-12 rounded-full border-2 border-[#E87A5D]/50 bg-gradient-to-br from-[#E87A5D] to-[#B25944] text-white flex items-center justify-center font-black text-lg">
+                  {initials}
+                </div>
+              )}
             </button>
           </div>
         </header>

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 
-export default function ProfileScreen({ navigate }) {
+export default function ProfileScreen({ navigate, onLogout }) {
+  const user = JSON.parse(localStorage.getItem('user')) || { name: 'Utilisateur', email: 'email@ikodi.com', picture: null };
+  const initials = user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
   const [editMode, setEditMode] = useState(false);
-  const [name, setName] = useState("Israel");
-  const [about, setAbout] = useState("Passionné par les langues et la culture, Israel apprend activement le bambara et explore les instruments traditionnels.");
-  const [email, setEmail] = useState("israel.user@email.com");
+  const [name, setName] = useState(user.name);
+  const [about, setAbout] = useState("Passionné par les langues et la culture africaines.");
+  const [email, setEmail] = useState(user.email);
   const [tempName, setTempName] = useState(name);
   const [tempAbout, setTempAbout] = useState(about);
   const [tempEmail, setTempEmail] = useState(email);
@@ -44,12 +46,16 @@ export default function ProfileScreen({ navigate }) {
               {/* Avatar Section */}
               <div className="relative mb-6">
                 <div className="absolute -inset-1 bg-gradient-to-r from-[#E87A5D] to-[#B25944] rounded-full blur opacity-25"></div>
-                <div className="relative w-32 h-32 rounded-full border-4 border-[var(--glass-border)] overflow-hidden">
-                  <img
-                    src="/src/assets/profile.jpg"
-                    alt="Avatar"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
+                <div className="relative w-32 h-32 rounded-full border-4 border-[var(--glass-border)] overflow-hidden bg-gradient-to-br from-[#E87A5D] to-[#B25944] flex items-center justify-center text-white text-4xl font-black">
+                  {user.picture ? (
+                    <img
+                      src={user.picture}
+                      alt="Avatar"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                  ) : (
+                    <span>{initials}</span>
+                  )}
                 </div>
                 {editMode && (
                   <button className="absolute bottom-1 right-1 w-10 h-10 bg-[#E87A5D] border-4 border-[var(--bg-color)] rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform shadow-lg">
@@ -126,13 +132,24 @@ export default function ProfileScreen({ navigate }) {
                     </div>
                   </div>
 
-                  <button
-                    onClick={handleEdit}
-                    className="btn-premium mt-10 w-full sm:w-auto"
-                  >
-                    <Icon icon="solar:pen-new-square-linear" width={20} />
-                    Modifier mon profil
-                  </button>
+                  <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center">
+                    <button
+                      onClick={handleEdit}
+                      className="btn-premium flex-1"
+                    >
+                      <Icon icon="solar:pen-new-square-linear" width={20} />
+                      Modifier
+                    </button>
+                    {onLogout && (
+                      <button
+                        onClick={onLogout}
+                        className="btn-premium flex-1 flex gap-2 !bg-red-500/10 !text-red-500 hover:!bg-red-500/20 border border-red-500/20"
+                      >
+                        <Icon icon="solar:logout-2-bold" width={20} />
+                        Déconnexion
+                      </button>
+                    )}
+                  </div>
                 </div>
               )}
             </div>

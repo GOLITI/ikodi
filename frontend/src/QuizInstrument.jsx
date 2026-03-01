@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Icon } from "@iconify/react";
+import { useUserStats } from "./hooks/useUserStats";
 
 const instrumentQuestions = [
   {
@@ -42,6 +43,8 @@ export default function QuizInstrument({ onExit, onFinish }) {
   const [showResult, setShowResult] = useState(false);
   const [score, setScore] = useState(0);
   const [completed, setCompleted] = useState(false);
+  const [pointsAwarded, setPointsAwarded] = useState(null);
+  const { addPoints, completeLesson } = useUserStats();
 
   const q = instrumentQuestions[step];
 
@@ -60,11 +63,17 @@ export default function QuizInstrument({ onExit, onFinish }) {
       setSelected(null);
       setShowResult(false);
     } else {
+      // Quiz finished — compute final score and send to backend
+      const finalScore = Math.round(((score + (selected === q.correct ? 1 : 0)) / instrumentQuestions.length) * 100);
+      const pts = Math.round(finalScore / 10) * 10; // award up to 100 pts
+      addPoints(pts).then(data => setPointsAwarded(data?.points ?? pts));
+      completeLesson('quiz-instruments', 'Quiz Instruments Ivoiriens', finalScore);
       setCompleted(true);
     }
   }
 
   if (completed) {
+    const pct = Math.round((score / instrumentQuestions.length) * 100);
     return (
       <div className="min-h-screen bg-[var(--bg-color)] flex flex-col items-center justify-center p-6 animate-fade-in">
         <div className="glass-card p-12 text-center max-w-lg w-full relative overflow-hidden">
@@ -74,10 +83,16 @@ export default function QuizInstrument({ onExit, onFinish }) {
           <p className="text-lg font-medium mb-8" style={{ color: 'var(--text-dim)' }}>
             Vous avez terminé le quiz sur les instruments ivoiriens.
           </p>
-          <div className="bg-[var(--input-bg)] rounded-3xl p-8 mb-8 border border-[var(--glass-border)]">
-            <span className="text-5xl font-black text-[#E87A5D]">{Math.round((score / instrumentQuestions.length) * 100)}%</span>
+          <div className="bg-[var(--input-bg)] rounded-3xl p-8 mb-4 border border-[var(--glass-border)]">
+            <span className="text-5xl font-black text-[#E87A5D]">{pct}%</span>
             <p className="text-xs font-bold uppercase tracking-widest mt-2" style={{ color: 'var(--text-muted)' }}>Score Final</p>
           </div>
+          {pointsAwarded !== null && (
+            <div className="flex items-center justify-center gap-2 mb-8 text-[#FFB84D] font-black text-lg animate-fade-in">
+              <Icon icon="solar:star-bold" width={22} />
+              <span>+{Math.round(pct / 10) * 10} points ajoutés à votre compte !</span>
+            </div>
+          )}
           <button
             onClick={onExit}
             className="w-full bg-[#E87A5D] text-white py-4 rounded-2xl font-bold shadow-xl shadow-[#E87A5D]/20 hover:scale-[1.02] active:scale-95 transition-all"

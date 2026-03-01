@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Icon } from "@iconify/react";
 import { useDioulaAPI } from "./hooks/useDioulaAPI";
+import { useUserStats } from "./hooks/useUserStats";
 
 export default function LessonSystem({ lessonId, onBack, navigate }) {
     const { getLesson, checkAnswer, getAudioUrl, loading, error } = useDioulaAPI();
+    const { addPoints, completeLesson: saveLessonProgress } = useUserStats();
     const [lesson, setLesson] = useState(null);
     const [step, setStep] = useState(0); // 0: Content, 1: Quiz
     const [quizIndex, setQuizIndex] = useState(0);
@@ -31,8 +33,14 @@ export default function LessonSystem({ lessonId, onBack, navigate }) {
                 completedLessons.push(lessonId);
                 localStorage.setItem('completed_dioula_lessons', JSON.stringify(completedLessons));
             }
+            // Send score to backend
+            const pct = lesson?.quiz?.length ? Math.round((score / lesson.quiz.length) * 100) : 100;
+            const pts = Math.max(10, Math.round(pct / 10) * 5);
+            addPoints(pts);
+            saveLessonProgress(lessonId, lesson?.title || lessonId, pct);
         }
     }, [completed, lessonId]);
+
 
     const handlePlayAudio = (text, index) => {
         setIsPlaying(index);
